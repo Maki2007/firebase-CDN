@@ -67,5 +67,5 @@ export async function createSnapshot(path, document, name, action){
   });
 }
 export async function deleteSnapshot(name){
-  snapshot[name]()
+  snapshot["name"]()
 }
