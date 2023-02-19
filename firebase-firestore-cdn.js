@@ -1,5 +1,5 @@
 //Firestore
-import { getFirestore, doc, getDoc, setDoc, deleteDoc, updateDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+import { getFirestore, doc, getDoc, setDoc, deleteDoc, updateDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 const db = getFirestore(app)
 
 export async function getFirestoreData(path, document){
@@ -57,4 +57,14 @@ export async function updateFirestoreData(path, document, data){
 export async function deleteFirestoreData(path, document){
   console.log("Delete /"+path+"/"+document);
   await deleteDoc(doc(db, path, document));
+}
+
+let snapshot = {}
+export async function createSnapshot(path, document, name){
+  snapshot[name] = onSnapshot(doc(db, path, document), (doc) => {
+    console.log("Data updated /"+path+"/"+document);
+  });
+}
+export async function deleteSnapshot(name){
+  snapshot[name]()
 }
