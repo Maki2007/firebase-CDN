@@ -63,7 +63,7 @@ let snapshot = {}
 export async function createSnapshot(path, document, name, action){
   snapshot[name] = onSnapshot(doc(db, path, document), (doc) => {
     console.log("Data updated /"+path+"/"+document);
-    window[action]()
+    window["action"]()
   });
 }
 export async function deleteSnapshot(name){
