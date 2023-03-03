@@ -4,10 +4,11 @@ window.auth = getAuth(app);
 
 window.user
 
-onAuthStateChanged(auth, (user) => {
-    sessionStorage.setItem("userdata", JSON.stringify(user))
-  if (user) {
-    let uid = user.uid;
+onAuthStateChanged(auth, (userx) => {
+    sessionStorage.setItem("userdata", JSON.stringify(userx))
+  if (userx) {
+    let uid = userx.uid;
+    user = userx
     document.getElementById("accountNav").innerHTML = '<button id="signOutBTN" onclick="signout()">Log ud</button>'
     console.log("Signed in: "+uid)
   } else {
