@@ -8,7 +8,7 @@ onAuthStateChanged(auth, (userx) => {
     sessionStorage.setItem("userdata", JSON.stringify(userx))
   if (userx) {
     let uid = userx.uid;
-    user = userx
+    window.user = userx
     document.getElementById("accountNav").innerHTML = '<button id="signOutBTN" onclick="signout()">Log ud</button>'
     console.log("Signed in: "+uid)
   } else {
@@ -22,7 +22,7 @@ export async function signUp(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
-        let user = userCredential;
+        window.user = userCredential;
         let uid = userCredential.user.uid;
         let email = userCredential.user.email;
         console.log("Created user as: "+email+" UID: "+uid, user);
@@ -41,7 +41,7 @@ export async function signUp(email, password) {
 export function signIn(email, password){
   signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
-    user = userCredential.user;
+    window.user = userCredential.user;
     if (user.displayName){
       window.location.href = "/firm/firm.html"
     } else {
