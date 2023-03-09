@@ -1,5 +1,5 @@
 //Auth
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, reauthenticateWithCredential} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, deleteUser} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
 window.auth = getAuth(app);
 
 window.user
@@ -73,8 +73,17 @@ export function signout(){
   });
 }
 
-export async function deleteAccount() {
-  const credential = promptForCredentials();
-  var result = await user.reauthenticateWithCredential(credential);
-  await result.user.delete();
+export async function deleteAccount(actionS, actionF) {
+  deleteUser(user).then(() => {
+    // User deleted.
+    if (actionS){
+      window[actionS]()
+    }
+  }).catch((error) => {
+    // An error ocurred
+    // ...
+    if (actionF){
+      window[actionF]()
+    }
+  });
 }
