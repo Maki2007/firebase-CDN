@@ -4,6 +4,8 @@ window.auth = getAuth(app);
 
 window.user
 
+window.OnAuthChangedIn = ""
+window.OnAuthChangedOut = ""
 onAuthStateChanged(auth, (userx) => {
     sessionStorage.setItem("userdata", JSON.stringify(userx))
   if (userx) {
@@ -11,9 +13,15 @@ onAuthStateChanged(auth, (userx) => {
     window.user = userx
     document.getElementById("accountNav").innerHTML = '<button id="signOutBTN" onclick="signout()">Log ud</button>'
     console.log("Signed in: "+uid)
+    if (OnAuthChangedIn) {
+      window[OnAuthChangedIn]()
+    }
   } else {
     document.getElementById("accountNav").innerHTML = '<button id="signInBTN" onclick="toSignIn()">Log ind</button>'
     console.log("No signed in user")
+    if (OnAuthChangedOut) {
+      window[OnAuthChangedOut]()
+    }
   }
 });
 
