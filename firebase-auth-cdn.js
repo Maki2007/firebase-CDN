@@ -1,5 +1,5 @@
 //Auth
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, promptForCredentials} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, reauthenticateWithCredential} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
 window.auth = getAuth(app);
 
 window.user
