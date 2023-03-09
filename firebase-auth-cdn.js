@@ -1,5 +1,5 @@
 //Auth
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, deleteUser} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword, deleteUser, reauthenticateWithCredential} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
 window.auth = getAuth(app);
 
 window.user
@@ -70,6 +70,31 @@ export function signout(){
     window.location.href = "/index.html";
   }).catch((error) => {
     console.error(error)
+  });
+}
+
+export async function reauthenticate(password, reS, reF){
+  const auth = getAuth();
+const user = auth.currentUser;
+
+// Create a credential with the user's email and password
+const credential = EmailAuthProvider.credential(user.email, password);
+
+// Reauthenticate the user with the credential
+reauthenticateWithCredential(user, credential)
+  .then(() => {
+    // User successfully reauthenticated
+    console.log("User reauthenticated");
+    if (reS){
+      window[reS]()
+    }
+  })
+  .catch((error) => {
+    // An error occurred while reauthenticating the user
+    console.error(error);
+    if (reF){
+      window[reF]()
+    }
   });
 }
 
