@@ -74,6 +74,7 @@ export function signout(){
 }
 
 export async function deleteAccount() {
+  const credential = promptForCredentials();
   var result = await user.reauthenticateWithCredential(credential);
   await result.user.delete();
 }
