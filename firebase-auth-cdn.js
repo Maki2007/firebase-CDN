@@ -75,27 +75,27 @@ export function signout(){
 
 export async function reauthenticate(password, reS, reF){
   const auth = getAuth();
-const user = auth.currentUser;
+  const user = auth.currentUser;
 
-// Create a credential with the user's email and password
-const credential = EmailAuthProvider.credential(user.email, password);
+  // Create a credential with the user's email and password
+  const credential = EmailAuthProvider.credential(user.email, password);
 
-// Reauthenticate the user with the credential
-reauthenticateWithCredential(user, credential)
-  .then(() => {
-    // User successfully reauthenticated
-    console.log("User reauthenticated");
-    if (reS){
-      window[reS]()
-    }
-  })
-  .catch((error) => {
-    // An error occurred while reauthenticating the user
-    console.error(error);
-    if (reF){
-      window[reF]()
-    }
-  });
+  // Reauthenticate the user with the credential
+  reauthenticateWithCredential(user, credential)
+    .then(() => {
+      // User successfully reauthenticated
+      console.log("User reauthenticated");
+      if (reS){
+        window[reS]()
+      }
+    })
+    .catch((error) => {
+      // An error occurred while reauthenticating the user
+      console.error(error);
+      if (reF){
+        window[reF]()
+      }
+    });
 }
 
 export async function deleteAccount(actionS, actionF) {
