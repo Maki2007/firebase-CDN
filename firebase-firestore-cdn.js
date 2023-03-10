@@ -1,5 +1,5 @@
 //Firestore
-import { getFirestore, doc, getDoc, setDoc, deleteDoc, updateDoc, collection, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+import { getFirestore, doc, getDoc, setDoc, deleteDoc, updateDoc, collection, getDocs, onSnapshot, query, where} from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 const db = getFirestore(app)
 
 export async function getFirestoreData(path, document){
@@ -23,6 +23,22 @@ export async function getCollectionFirestoreData(path){
   const querySnapshot = await getDocs(collection(db, path));
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
+    currentData = doc.data()
+    currentData.id = doc.id
+    data.push(currentData)
+  });
+  console.log("Data - Collection /"+path, data);
+  return data
+}
+
+export async function getCollectionFirestoreDataFilter(path, key, operator, value){
+  let currentData = {}
+  let data = []
+  const q = query(collection(db, path), where(key, operator, value));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
     currentData = doc.data()
     currentData.id = doc.id
     data.push(currentData)
