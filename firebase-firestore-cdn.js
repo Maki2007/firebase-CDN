@@ -76,10 +76,10 @@ export async function deleteFirestoreData(path, document){
 }
 
 let snapshot = {}
-export async function createSnapshot(path, document, name, action){
+export async function createSnapshot(path, document, name, action, actionP){
   snapshot[name] = onSnapshot(doc(db, path, document), (doc) => {
     console.log("Data updated /"+path+"/"+document);
-    window[action]()
+    window[action]([actionP])
   });
 }
 export async function deleteSnapshot(name){

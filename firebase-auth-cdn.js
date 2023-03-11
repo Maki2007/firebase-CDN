@@ -6,6 +6,8 @@ window.user
 
 window.OnAuthChangedIn = ""
 window.OnAuthChangedOut = ""
+window.OnAuthChangedInP = ""
+window.OnAuthChangedOutP = ""
 onAuthStateChanged(auth, (userx) => {
     sessionStorage.setItem("userdata", JSON.stringify(userx))
   if (userx) {
@@ -14,13 +16,13 @@ onAuthStateChanged(auth, (userx) => {
 
     console.log("Signed in: "+uid)
     if (OnAuthChangedIn) {
-      window[OnAuthChangedIn]()
+      window[OnAuthChangedIn]([OnAuthChangedInP])
     }
   } else {
     console.log("No signed in user")
     
     if (OnAuthChangedOut) {
-      window[OnAuthChangedOut]()
+      window[OnAuthChangedOut]([OnAuthChangedOutP])
     }
   }
 });
@@ -73,7 +75,7 @@ export function signout(){
   });
 }
 
-export async function reauthenticate(password, reS, reF){
+export async function reauthenticate(password, reS, reF, reSP, reFP){
   const auth = getAuth();
   const user = auth.currentUser;
 
@@ -86,29 +88,29 @@ export async function reauthenticate(password, reS, reF){
       // User successfully reauthenticated
       console.log("User reauthenticated");
       if (reS){
-        window[reS]()
+        window[reS]([reSP])
       }
     })
     .catch((error) => {
       // An error occurred while reauthenticating the user
       console.error(error);
       if (reF){
-        window[reF]()
+        window[reF]([reFP])
       }
     });
 }
 
-export async function deleteAccount(actionS, actionF) {
+export async function deleteAccount(actionS, actionF, actionSP, actionFP) {
   deleteUser(user).then(() => {
     // User deleted.
     if (actionS){
-      window[actionS]()
+      window[actionS]([actionSP])
     }
   }).catch((error) => {
     // An error ocurred
     // ...
     if (actionF){
-      window[actionF]()
+      window[actionF]([actionFP])
     }
   });
 }
