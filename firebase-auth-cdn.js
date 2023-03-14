@@ -4,10 +4,6 @@ window.auth = getAuth(app);
 
 window.user
 
-window.OnAuthChangedIn = undefined
-window.OnAuthChangedOut = undefined
-window.OnAuthChangedInP = undefined
-window.OnAuthChangedOutP = undefined
 onAuthStateChanged(auth, (userx) => {
     sessionStorage.setItem("userdata", JSON.stringify(userx))
   if (userx) {
@@ -15,13 +11,13 @@ onAuthStateChanged(auth, (userx) => {
     window.user = userx
 
     console.log("Signed in: "+uid)
-    if (!OnAuthChangedIn == undefined) {
+    if (OnAuthChangedIn) {
       window[OnAuthChangedIn]([OnAuthChangedInP])
     }
   } else {
     console.log("No signed in user")
     
-    if (!OnAuthChangedOut == undefined) {
+    if (OnAuthChangedOut) {
       window[OnAuthChangedOut]([OnAuthChangedOutP])
     }
   }
