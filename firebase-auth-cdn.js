@@ -12,6 +12,7 @@ onAuthStateChanged(auth, (userx) => {
 
     console.log("Signed in: "+uid)
     if (OnAuthChangedIn) {
+      alert("heeee")
       window[OnAuthChangedIn]([OnAuthChangedInP])
     }
   } else {
