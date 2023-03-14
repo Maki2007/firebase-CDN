@@ -4,6 +4,10 @@ window.auth = getAuth(app);
 
 window.user
 
+window.OnAuthChangedIn = ""
+window.OnAuthChangedOut = ""
+window.OnAuthChangedInP = ""
+window.OnAuthChangedOutP = ""
 onAuthStateChanged(auth, (userx) => {
     sessionStorage.setItem("userdata", JSON.stringify(userx))
   if (userx) {
