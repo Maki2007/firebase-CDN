@@ -14,13 +14,12 @@ onAuthStateChanged(auth, (userx) => {
     let uid = userx.uid;
     window.user = userx
 
-    console.log("Signed in: "+uid)
+    console.log("Signed in: "+uid, OnAuthChangedIn)
     if (OnAuthChangedIn) {
       window[OnAuthChangedIn]([OnAuthChangedInP])
     }
   } else {
-    console.log("No signed in user")
-    
+    console.log("No signed in user", OnAuthChangedOut)
     if (OnAuthChangedOut) {
       window[OnAuthChangedOut]([OnAuthChangedOutP])
     }
